@@ -32,6 +32,8 @@ trait ModelCache
         $cacheKey = $this->getCacheKey($query);
 
         Cache::forget($cacheKey);
+
+        return $query;
     }
 
     private function inCache($query)
@@ -49,6 +51,7 @@ trait ModelCache
 
         Model::unguard();
         $result = $this->newQuery()->hydrate($dataArr);
+        $result->append(['cache_key' => $cacheKey]);
         Model::unguard();
 
         return $result;
@@ -65,6 +68,10 @@ trait ModelCache
 
     private function getCacheKey($query)
     {
+        if (isset($this->appends['cache_key']) && $this->appends['cache_key']) {
+            return $this->appends['cache_key'];
+        }
+
         $sql = Str::replaceArray('?', $query->getBindings(), $query->toSql());
 
         return $this->getTable() . ":" . md5($sql);
