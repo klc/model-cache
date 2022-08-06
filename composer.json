@@ -1,0 +1,20 @@
+{
+    "name": "klc/model-cache",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mustafa Kılıç",
+            "email": "m_kilic@outlook.com.tr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "laravel/framework": "8.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "KLC\\" : "src/"
+        }
+    }
+}
